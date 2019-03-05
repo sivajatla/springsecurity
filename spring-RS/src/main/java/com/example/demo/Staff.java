@@ -3,6 +3,10 @@ package com.example.demo;
 
 public class Staff {
 	
+	private String id;
+	private String name;
+	
+	
 	public Staff() {
 		
 	}
@@ -11,8 +15,6 @@ public class Staff {
 		this.id = id;
 		this.name = name;
 	}
-	private String id;
-	private String name;
 	
 	public String getId() {
 		return id;
