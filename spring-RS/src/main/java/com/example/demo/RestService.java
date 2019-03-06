@@ -52,8 +52,8 @@ public class RestService {
 		return staff.getName();
 	}
 	
-	//TODO:getting null values
-	@RequestMapping(value = "/saveProfileReqForm",consumes=MediaType.APPLICATION_FORM_URLENCODED,method=RequestMethod.POST)
+	//giving raw data in the form of id="value"&name="jkj" then only populating values or else through html formsubmit
+	@RequestMapping(value = "/saveProfileReqRaw",consumes=MediaType.APPLICATION_FORM_URLENCODED,method=RequestMethod.POST)
 	@Produces(MediaType.APPLICATION_ATOM_XML)
 	public Staff saveProfile(@FormParam("id") String id,@FormParam("name") String name) {
 		Staff staff = new Staff(id,name);
@@ -61,9 +61,19 @@ public class RestService {
 	}
 	
 	
-	  @RequestMapping(value = "/saveProfileReqJson", method = RequestMethod.POST,consumes=MediaType.APPLICATION_JSON)
-	  @Produces(MediaType.APPLICATION_JSON) public Staff
-	  saveProfileJsonReq(@RequestBody Staff staff) {
-	  System.out.println("inside saveProfile content type json"); return staff; }
+		@RequestMapping(value = "/saveProfileFormData",consumes=MediaType.MULTIPART_FORM_DATA,method=RequestMethod.POST)
+		@Produces(MediaType.APPLICATION_ATOM_XML)
+		public Staff saveProfileFormData(@FormParam("id") String id,@FormParam("name") String name) {
+			Staff staff = new Staff(id,name);
+			return staff;
+		}
+	
+	
+	@RequestMapping(value = "/saveProfileReqJson", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+	public Staff saveProfileJsonReq(@RequestBody Staff staff) {
+		staff.setName(staff.getName() + "ack");
+		System.out.println("inside saveProfile content type json");
+		return staff;
+	}
 	 
 }
